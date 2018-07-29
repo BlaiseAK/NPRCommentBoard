@@ -7,11 +7,19 @@ var cheerio = require("cheerio");
 
 var db = require("./models");
 
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 
 var app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(bodyParser.json());
+
+var exphbs = requireF("express-handlebars");
+
+app.engine("handlebars", exphbs({ defaultLayout: "main"}));
+app.set("view engine", "handlebars");
+
 
 app.use(express.static("public"));
 
