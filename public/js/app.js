@@ -25,6 +25,9 @@ $(document).on("click", "p", function() {
                 $("#titleinput").val(data.comment.title);
                 $("#bodyinput").val(data.comment.body);
             }
+        })
+        .then(function(){
+            location.reload();
         });
 });
 
@@ -42,6 +45,9 @@ $(document).on("click", "#savecomment", function() {
         .then(function(data) {
             console.log(data);
             $("#comments").empty();
+        })
+        .then(function(){
+            location.reload();
         });
     $("#titleinput").val("");
     $("#bodyinput").val("");
