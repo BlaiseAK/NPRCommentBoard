@@ -23,7 +23,12 @@ app.set("view engine", "handlebars");
 
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost/mongoHeadlines");
+
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+mongoose.Promise = Promise;
+
+mongoose.connect(MONGODB_URI);
 
 var routes = require("./controllers/controller.js");
 
