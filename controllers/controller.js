@@ -25,11 +25,21 @@ router.get("/scrape", function(req, res) {
                 .children("a")
                 .children(".title")
                 .text();
+            collection.summary = cheer(this)
+                .children(".story-text")
+                .children("a")
+                .children("p")
+                .text();
+            collection.photo = cheer(this)
+                .children(".thumb-image")
+                .children(".bucketwrap")
+                .children(".imagewrap")
+                .children("a")
+                .attr("href");
             collection.link = cheer(this)
                 .children(".story-text")
                 .children("a")
-                .attr("href")
-                .val();
+                .attr("href");
 
             db.Article.create(collection)
                 .then(function(dbArticle) {

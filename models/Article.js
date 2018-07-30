@@ -10,6 +10,14 @@ var ArticleSchema = new Schema({
         type: String,
         required: true
     },
+    summary: {
+        type: String,
+        required: true
+    },
+    photo: {
+        type: String,
+        required: false
+    },
     // Link will be the type of string
     link: {
         type: String,
