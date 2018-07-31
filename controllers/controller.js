@@ -8,9 +8,23 @@ var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
 
-var db = require("./models");
+var db = require("../models");
 
-
+router.get("/", function(req, res) {
+    db.Article.find({}, function(data) {
+            var hbsObject = {
+                Article: data
+            }
+            // console.log(dbArticle);
+            // res.render(hbsObject)
+        })
+        .then(function(dbArticle) {
+           res.render("index", dbArticle)
+        })
+        .catch(function(err) {
+            res.json(err);
+        });
+});
 
 router.get("/scrape", function(req, res) {
 
@@ -35,17 +49,18 @@ router.get("/scrape", function(req, res) {
                 .children(".bucketwrap")
                 .children(".imagewrap")
                 .children("a")
-                .attr("href");
+                .children(".img")
+                .attr("src");
             collection.link = cheer(this)
                 .children(".story-text")
                 .children("a")
                 .attr("href");
 
             db.Article.create(collection)
-                .then(function(dbArticle) {
-                    console.log(dbArticle);
-
-                })
+                // .then(function(dbArticle) {
+                //     console.log(dbArticle);
+                    
+                // })
                 .catch(function(err) {
                     return res.json(err);
                 });
@@ -53,21 +68,27 @@ router.get("/scrape", function(req, res) {
     });
 });
 
-router.get("/articles", function(req, res) {
-    db.Article.find({})
-        .then(function(dbArticle) {
-            res.json(dbArticle);
-        })
-        .catch(function(err) {
-            res.json(err);
-        });
-});
+// router.get("/articles", function(req, res) {
+//     db.Article.find({}, function(data) {
+//         var hbsObject = {
+//             Article: data
+//         }
+//         // console.log(dbArticle);
+//         // res.render(hbsObject)
+//     })
+//         .then(function(dbArticle) {
+//            res.render("index", dbArticle)
+//         })
+//         .catch(function(err) {
+//             res.json(err);
+//         });
+// });
 
 router.get("/articles/:id", function(req, res) {
     db.Article.findOne({ _id: req.params.id})
         .populate("comment")
         .then(function(dbArticle) {
-            res.json(dbArticle);
+            res.render(dbArticle);
         })
         .catch(function(err) {
             res.json(err);

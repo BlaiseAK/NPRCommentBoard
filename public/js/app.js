@@ -1,9 +1,20 @@
-$.getJSON("/articles", function(data) {
+$.getJSON("/", function(data) {
     for (var i = 0; i < data.length; i++) {
-        $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+        $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].photo + "<br />" + data[i].title + "<br />" + data[i].summary + "<br />" + data[i].link + "</p>");
 
     }
 });
+
+$(document).on("click", "#scrapper", function() {
+    $.ajax({
+        method: "GET",
+        url: "/scrape"
+    })
+    .then(function(data){
+        var article = $("<div>");
+        article = article
+    })
+})
 
 $(document).on("click", "p", function() {
     $("#comments").empty();
@@ -22,7 +33,6 @@ $(document).on("click", "p", function() {
             $("#comments").append("<button data-id='" + data._id + "' id='savecomment'>Save Comment</button>");
 
             if (data.comment) {
-                $("#titleinput").val(data.comment.title);
                 $("#bodyinput").val(data.comment.body);
             }
         })

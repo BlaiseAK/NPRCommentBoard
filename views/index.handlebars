@@ -5,17 +5,49 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-md-5">
+            {{!-- left blank intentionally --}}
+        </div>
+        <div class="col-md-2">
+            <button id="scrapper">Scrape NPR's news articles!</button>
+        </div>
+        <div class="col-md-5">
+            {{!-- left blank intentionally --}}
+        </div>
+
+    </div>
+    <div class="row">
         {{!-- This will hold both the list of the articles and the comments that go to them..... should probably reference the exercised to see how they populated the side with the specific notes --}}
+        <div class="col-md-2">
+            {{!-- left blank intentionally --}}
+        </div>
         <div class="col-md-8">
-            {{#each Article}}
-                {{title}}
-                {{summary}}
-                {{photo}}
-                {{link}}
-                {{#each comment}}
-                    {{body}}
-                {{/each}}
+            <ol>
+            {{#each article}}
+                <div class="card">
+                    <div class="card-body">
+                        <li>
+                            <img src="{{photo}}" alt="npr scrapped photo link">
+                            <h6>{{title}}</h6>
+                            <br>
+                            <p>{{summary}}</p>
+                            <br>
+                            <a href="{{link}}">Link to the article here!</a>
+                            {{#each comment}}
+                                <div class="card">
+                                    <div class="card-body">
+                                        {{body}}
+                                    </div>
+                                </div>
+                            {{/each}}
+                        </li>
+                    </div>
+                </div>
             {{/each}}
+            </ol>
+        </div>
+        <div class="col-md-2">
+            {{!-- left blank intentionally --}}
         </div>
     </div>
 </div>
