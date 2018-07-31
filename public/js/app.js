@@ -11,58 +11,45 @@ $(document).on("click", "#scrapper", function() {
         url: "/scrape"
     })
     .then(function(data){
-        // var article = $("<div>");
-        // article = article
-        $.ajax({
-            method: "GET",
-            url: "/articles"
-        });
-    })
-})
-
-$(document).on("click", "p", function() {
-    $("#comments").empty();
-
-    var thisId = $(this).attr("data-id");
-
-    $.ajax({
-        method: "GET",
-        url: "/articles/"+thisId
-    })
-        .then(function(data) {
-            console.log(data);
-            $("#comments").append("<h2>"+data.title+"</h2>");
-            $("#comments").append("<input id='titleinput' name='title' >");
-            $("#comments").append("<textarea id='bodyinput' name='body'></textarea>");
-            $("#comments").append("<button data-id='" + data._id + "' id='savecomment'>Save Comment</button>");
-
-            if (data.comment) {
-                $("#bodyinput").val(data.comment.body);
-            }
-        })
-        .then(function(){
+        if(data) {
             location.reload();
-        });
+        }
+    })
+    .catch(function(err) {
+        console.log(err);
+    });
 });
 
-$(document).on("click", "#savecomment", function() {
-    var thisId = $(this).attr("data-id");
+$(document).on("click", ".submitComment", function() {
+    event.preventDefault();
+
+    var id = $(this).data("id");
+    var commentText = $(this).children(".commentText").val();
+
 
     $.ajax({
         method: "POST",
-        url: "/articles/" + thisId,
+        url: "/articles/"+id,
         data: {
-            title: $("#titleinput").val(),
-            body: $("#bodyinput").val()
+            comment: commentText
         }
     })
-        .then(function(data) {
-            console.log(data);
-            $("#comments").empty();
-        })
-        .then(function(){
+    .then(function(comment) {
+        $(".commentText").val("");
+        location.reload();
+    });
+});
+
+$(document).on("click", ".delete", function() {
+    var id = $(this).data("id");
+
+    $.ajax({
+        method: "DELETE",
+        url: "/comment/"+id
+    })
+    .then(function(data) {
+        if(data) {
             location.reload();
-        });
-    $("#titleinput").val("");
-    $("#bodyinput").val("");
+        }
+    });
 });

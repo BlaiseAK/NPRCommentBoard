@@ -81,8 +81,9 @@ router.get("/articles", function(req, res) {
         // console.log(dbArticle);
         // res.render(hbsObject)
     })
+        .populate("comment")
         .then(function(dbArticle) {
-           res.json(dbArticle)
+           res.render(dbArticle)
         })
         .catch(function(err) {
             res.json(err);
@@ -101,7 +102,7 @@ router.get("/articles/:id", function(req, res) {
         });
 });
 
-app.post("/articles/:id", function(req, res) {
+router.post("/articles/:id", function(req, res) {
     db.Comment.create(req.body)
         .then(function(dbComment) {
             return db.Article.findOneAndUpdate({_id: req.params.id}, { $push: {comment: dbComment._id}}, {new: true});
@@ -114,6 +115,16 @@ app.post("/articles/:id", function(req, res) {
             res.json(err);
         });
 });
+
+router.delete("/comment/:id", function(req, res) {
+    db.Comment.findOneAndRemove({_id: req.params.id})
+        .then(function() {
+            res.json(true);
+        })
+        .catch(function(err) {
+            res.json(err);
+        });
+})
 
 
 module.exports = router

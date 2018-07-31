@@ -27,16 +27,27 @@
                 <div class="card">
                     <div class="card-body">
                         <li>
-                            <img src={{{photo}}} alt="npr scrapped photo link">
-                            <h6>{{{title}}}</h6>
+                            <img src={{photo}} alt="npr scrapped photo link">
+                            <h6>{{title}}</h6>
                             <br>
-                            <p>{{{summary}}}</p>
+                            <p>{{summary}}</p>
                             <br>
-                            <a href={{{link}}}>Link to the article here!</a>
-                            {{#each comment}}
+                            <a href={{link}}>Link to the article here!</a>
+                            <hr>
+                            <form>
+                                <div class="form-group">
+                                    <label for="commentText">Give us your thoughts:</label>
+                                    <input type="text" class="form-control commentText" name="comment" maxlength="255" id="comment">
+                                </div>
+                                <button class="btn btn-info btn-sm submitComment" data-id="{{_id}}">Post</button>
+                            </form>
+                            <br>
+                            <h6>Comments:</h6>
+                            <div class="comments" id={{_id}}></div>
+                            {{#each this.comment}}
                                 <div class="card">
                                     <div class="card-body">
-                                        {{{body}}}
+                                        <p> <button class="btn btn-sm btn-danger delete" data-id={{_id}}>X</button>{{{body}}}</p>
                                     </div>
                                 </div>
                             {{/each}}
