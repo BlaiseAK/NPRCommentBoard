@@ -13,6 +13,7 @@ var db = require("../models");
 // HTML Route
 router.get("/", function(req, res) {
     db.Article.find({})
+        .populate("comment")
         .then(function(dbArticle) {
             console.log(dbArticle)
             var hbsObject = {
@@ -96,6 +97,7 @@ router.get("/articles/:id", function(req, res) {
     db.Article.findOne({ _id: req.params.id})
         .populate("comment")
         .then(function(dbArticle) {
+            console.log(dbArticle);
             res.render(dbArticle);
         })
         .catch(function(err) {
@@ -111,6 +113,7 @@ router.post("/articles/:id", function(req, res) {
             return db.Article.findOneAndUpdate({_id: req.params.id}, { $push: {comment: dbComment._id}}, {new: true});
         })
         .then(function(dbArticle) {
+            console.log(dbArticle);
             res.json(dbArticle);
         })
         .catch(function(err) {
