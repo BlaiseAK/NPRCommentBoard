@@ -11,8 +11,12 @@ $(document).on("click", "#scrapper", function() {
         url: "/scrape"
     })
     .then(function(data){
-        var article = $("<div>");
-        article = article
+        // var article = $("<div>");
+        // article = article
+        $.ajax({
+            method: "GET",
+            url: "/articles"
+        });
     })
 })
 

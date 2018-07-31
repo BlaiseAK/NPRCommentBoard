@@ -27,16 +27,16 @@
                 <div class="card">
                     <div class="card-body">
                         <li>
-                            <img src="{{photo}}" alt="npr scrapped photo link">
-                            <h6>{{title}}</h6>
+                            <img src={{{photo}}} alt="npr scrapped photo link">
+                            <h6>{{{title}}}</h6>
                             <br>
-                            <p>{{summary}}</p>
+                            <p>{{{summary}}}</p>
                             <br>
-                            <a href="{{link}}">Link to the article here!</a>
+                            <a href={{{link}}}>Link to the article here!</a>
                             {{#each comment}}
                                 <div class="card">
                                     <div class="card-body">
-                                        {{body}}
+                                        {{{body}}}
                                     </div>
                                 </div>
                             {{/each}}
