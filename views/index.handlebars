@@ -46,10 +46,10 @@
                             <br>
                             <h6>Comments:</h6>
                             <div class="comments" id={{_id}}></div>
-                            {{#each Comment}}
+                            {{#each comment}}
                                 <div class="card">
                                     <div class="card-body">
-                                        <p> <button class="btn btn-sm btn-danger delete" data-id={{_id}}>X</button>{{{body}}}</p>
+                                        <p> <button class="btn btn-sm btn-danger delete" data-id={{_id}}>X</button>{{body}}</p>
                                     </div>
                                 </div>
                             {{/each}}
