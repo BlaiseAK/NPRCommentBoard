@@ -12,15 +12,17 @@ var db = require("../models");
 
 // HTML Route
 router.get("/", function(req, res) {
-    db.Article.find({}, function(data) {
+    db.Article.find({})
+        .then(function(dbArticle) {
+            console.log(dbArticle)
             var hbsObject = {
-                Article: data
+                Article: dbArticle
             }
+            console.log(hbsObject);
             // console.log(dbArticle);
             // res.render(hbsObject)
-        })
-        .then(function(dbArticle) {
-           res.render("index", dbArticle)
+            res.render("index", hbsObject)
+          
         })
         .catch(function(err) {
             res.json(err);
@@ -74,16 +76,15 @@ router.get("/scrape", function(req, res) {
 
 // Renders all the articles into the browser window
 router.get("/articles", function(req, res) {
-    db.Article.find({}, function(data) {
-        var hbsObject = {
-            Article: data
-        }
-        // console.log(dbArticle);
-        // res.render(hbsObject)
-    })
+    db.Article.find({})
         .populate("comment")
         .then(function(dbArticle) {
-           res.render(dbArticle)
+            console.log(dbArticle)
+            var hbsObject = {
+                Article: dbArticle
+            }
+            console.log(hbsObject);
+            res.render("index", hbsObject)
         })
         .catch(function(err) {
             res.json(err);

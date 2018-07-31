@@ -1,0 +1,28 @@
+body {
+    background-color: beige;
+    align-content: center;
+    text-align: center;
+}
+
+.row {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    background-color: lightsalmon;
+    align-content: center;
+    text-align: center;
+}
+
+.card {
+    background-color: lightsalmon;
+    align-content: center;
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+}
