@@ -104,10 +104,11 @@ router.get("/articles/:id", function(req, res) {
 });
 
 router.post("/articles/:id", function(req, res) {
+    console.log(req.body);
     db.Comment.create(req.body)
         .then(function(dbComment) {
+            console.log(dbComment);
             return db.Article.findOneAndUpdate({_id: req.params.id}, { $push: {comment: dbComment._id}}, {new: true});
-
         })
         .then(function(dbArticle) {
             res.json(dbArticle);

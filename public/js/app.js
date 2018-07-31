@@ -24,17 +24,18 @@ $(document).on("click", ".submitComment", function() {
     event.preventDefault();
 
     var id = $(this).data("id");
-    var commentText = $(this).children(".commentText").val();
+    var commentText = $(".commentText").val().trim();
 
 
     $.ajax({
         method: "POST",
         url: "/articles/"+id,
         data: {
-            comment: commentText
+            body: commentText
         }
     })
     .then(function(comment) {
+        console.log(comment);
         $(".commentText").val("");
         location.reload();
     });
